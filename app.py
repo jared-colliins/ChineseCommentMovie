@@ -24,8 +24,19 @@ st.markdown(
     <style>
       .stApp {
         background: radial-gradient(circle at 15% 0%, #252c4e 0%, #0e1117 38%, #0e1117 100%);
+        color: #f8fafc;
       }
       .block-container { max-width: 920px; padding-top: 3.2rem; padding-bottom: 4rem; }
+      .stApp h1, .stApp h2, .stApp h3, .stApp p, .stApp label,
+      .stApp [data-testid="stMarkdownContainer"],
+      .stApp [data-testid="stMarkdownContainer"] *,
+      .stApp [data-testid="stCaptionContainer"],
+      .stApp [data-testid="stMetricLabel"],
+      .stApp [data-testid="stMetricValue"],
+      .stApp [data-testid="stExpander"] summary,
+      .stApp [data-testid="stExpander"] summary * {
+        color: #f8fafc !important;
+      }
       .hero {
         padding: 2.1rem 2.2rem;
         margin: 0 0 2rem 0;
@@ -35,11 +46,19 @@ st.markdown(
         box-shadow: 0 18px 45px rgba(0, 0, 0, .22);
       }
       .hero h1 { margin: 0; font-size: 2.55rem; letter-spacing: .02em; }
-      .hero p { margin: .55rem 0 0; color: #c4c9d4; font-size: 1.05rem; }
+      .hero p { margin: .55rem 0 0; color: #c4c9d4 !important; font-size: 1.05rem; }
       [data-testid="stTextArea"] textarea {
         border-radius: 14px; border: 1px solid #4b5563;
-        background: rgba(31, 35, 46, .92);
+        background: rgba(31, 35, 46, .92); color: #f8fafc !important;
       }
+      [data-testid="stTextInput"] input {
+        background: rgba(31, 35, 46, .92) !important;
+        border-color: #4b5563 !important; color: #f8fafc !important;
+      }
+      [data-testid="stTextArea"] textarea::placeholder,
+      [data-testid="stTextInput"] input::placeholder { color: #b8c0cf !important; opacity: 1; }
+      [data-testid="stTextArea"] label, [data-testid="stTextInput"] label,
+      [data-testid="stRadio"] label, [data-testid="stRadio"] p { color: #f8fafc !important; }
       [data-testid="stTextArea"] textarea:focus { border-color: #a78bfa; box-shadow: 0 0 0 1px #a78bfa; }
       .stButton > button {
         border: 0; border-radius: 12px; min-height: 3.1rem; font-size: 1.05rem; font-weight: 650;
@@ -48,6 +67,14 @@ st.markdown(
       .stButton > button:hover { background: linear-gradient(90deg, #6d28d9, #be185d); color: white; }
       [data-testid="stMetric"] { padding: .6rem 0; }
       [data-testid="stExpander"] { border-radius: 12px; border-color: #3e4655; }
+      [data-testid="stSidebar"] { background: rgba(22, 25, 35, .96); }
+      @media (max-width: 640px) {
+        .block-container { padding: 1.25rem 1.25rem 3rem; }
+        .hero { padding: 1.45rem 1.35rem; margin-bottom: 1.5rem; }
+        .hero h1 { font-size: 2rem; line-height: 1.25; }
+        .hero p { font-size: 1rem; line-height: 1.6; }
+        [data-testid="stTextArea"] textarea { font-size: 1rem !important; }
+      }
     </style>
     """,
     unsafe_allow_html=True,
