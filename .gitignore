@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.py[cod]
+models/*.joblib
+!models/sentiment_model.joblib
+models/rbt3_sentiment/
+reports/*.png
+reports/*.csv
+data/user_feedback.csv
+data/reviews_with_feedback.csv
+data/douban_reviews_with_feedback.csv
+data/douban_reviews.csv
+.streamlit/secrets.toml
