@@ -171,19 +171,18 @@ def main() -> None:
         st.write("**训练数据**：公开豆瓣影评")
         st.write("**输出范围**：好评 / 差评 / 低置信度提醒")
         st.divider()
-        st.caption("每次人工标注都会先进入独立反馈文件，审核后才会参与下一轮训练。")
+        st.caption("游客可直接分析；仅提交人工标注时需要登录。请勿输入个人隐私信息。")
 
     try:
         supabase_client = get_supabase_client()
     except RuntimeError as error:
         st.error(str(error))
         return
+    user = None
     if supabase_client:
         user = current_user(supabase_client)
-        if not user:
-            show_auth_page(supabase_client)
-            return
-        show_logged_in_user(supabase_client, user)
+        if user:
+            show_logged_in_user(supabase_client, user)
 
     if not MODEL_PATH.exists():
         st.error("尚未找到训练好的模型。请先在终端运行：python src/train.py")
@@ -248,19 +247,24 @@ def main() -> None:
 
         st.divider()
         st.subheader("帮助模型迭代")
-        st.caption("如果你知道这条影评的实际情感，可以保存人工标注；它会先进入独立反馈文件，后续审核后再合并到训练数据。")
-        with st.form("feedback_form", clear_on_submit=True):
-            actual_label = st.radio("实际标签", ["好评", "差评"], horizontal=True)
-            submitted = st.form_submit_button("保存人工标注")
-        if submitted:
-            try:
-                saved = save_feedback(review, 1 if actual_label == "好评" else 0, supabase_client)
-                if saved:
-                    st.success("感谢反馈！标注已提交，审核后才会参与下一轮训练。")
-                else:
-                    st.info("相同的影评与标签已经保存过，无需重复添加。")
-            except RuntimeError as error:
-                st.error(str(error))
+        st.caption("游客可直接体验分析，输入内容不会写入人工反馈库。仅自愿提交标注时需要登录；请勿提交个人隐私信息。")
+        if supabase_client and not user:
+            st.info("想帮助改进模型？登录或注册后即可提交人工标注。")
+            with st.expander("登录或注册以提交人工标注"):
+                show_auth_page(supabase_client)
+        else:
+            with st.form("feedback_form", clear_on_submit=True):
+                actual_label = st.radio("实际标签", ["好评", "差评"], horizontal=True)
+                submitted = st.form_submit_button("保存人工标注")
+            if submitted:
+                try:
+                    saved = save_feedback(review, 1 if actual_label == "好评" else 0, supabase_client)
+                    if saved:
+                        st.success("感谢反馈！标注已提交，审核后才会参与下一轮训练。")
+                    else:
+                        st.info("相同的影评与标签已经保存过，无需重复添加。")
+                except RuntimeError as error:
+                    st.error(str(error))
 
     st.divider()
     st.caption("提示：当前模型基于小型示例数据，结果用于学习和演示，不代表真实口碑判断。")

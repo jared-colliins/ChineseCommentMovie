@@ -37,8 +37,8 @@ def current_user(client):
 
 def show_auth_page(client) -> None:
     """展示登录与注册界面；成功后保存短期会话令牌而非密码。"""
-    st.subheader("登录后开始试用")
-    st.caption("注册后即可使用情感分析器。密码由 Supabase Auth 安全处理，本应用不会保存密码。")
+    st.subheader("登录后提交人工标注")
+    st.caption("分析功能无需登录。仅自愿提交人工标注时需要账户；密码不会写入本项目的文件或数据库。")
     login_tab, signup_tab = st.tabs(["登录", "注册"])
     with login_tab:
         with st.form("login_form"):
