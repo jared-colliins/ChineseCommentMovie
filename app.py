@@ -65,6 +65,15 @@ st.markdown(
         background: linear-gradient(90deg, #7c3aed, #db2777); color: white;
       }
       .stButton > button:hover { background: linear-gradient(90deg, #6d28d9, #be185d); color: white; }
+      [data-testid="stFormSubmitButton"] > button {
+        border: 0; border-radius: 12px; min-height: 3.1rem;
+        background: linear-gradient(90deg, #7c3aed, #db2777) !important;
+        color: #ffffff !important;
+      }
+      [data-testid="stFormSubmitButton"] > button p { color: #ffffff !important; }
+      [data-testid="stFormSubmitButton"] > button:hover {
+        background: linear-gradient(90deg, #6d28d9, #be185d) !important;
+      }
       [data-testid="stMetric"] { padding: .6rem 0; }
       [data-testid="stExpander"] { border-radius: 12px; border-color: #3e4655; }
       [data-testid="stSidebar"] { background: rgba(22, 25, 35, .96); }
