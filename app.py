@@ -268,7 +268,6 @@ def main() -> None:
 
     st.divider()
     st.caption("提示：当前模型基于小型示例数据，结果用于学习和演示，不代表真实口碑判断。")
-    st.caption("张梦杰贤弟服务有限公司")
 
 
 if __name__ == "__main__":
